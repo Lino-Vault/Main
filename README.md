@@ -11,6 +11,8 @@ LinoB Vault is a decentralized application on the Nervos Layer 2 chain. LinoB Va
 
 ## View Site
 
+Assumptions: The website currently assumes you have MetaMask installed with a funded Nervos Layer 2 account!
+
 Live website is available here: [Link to Site](https://000cmvhtgls9kor9059bo61cf9qi14sp9gaa56jli8ut5d4to4egaog.siasky.net/)
 
 ## Build
