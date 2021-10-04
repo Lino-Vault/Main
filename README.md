@@ -8,3 +8,17 @@ LinoB Vault is a decentralized application on the Nervos Layer 2 chain. LinoB Va
 
 ## Documentation
 [Read Documentation](https://linob.gitbook.io/linob-vault/)
+
+## View Site
+
+Live website is available here: [Link to Site](https://000cmvhtgls9kor9059bo61cf9qi14sp9gaa56jli8ut5d4to4egaog.siasky.net/)
+
+## Build
+To compile run the following:
+
+```yarn && npm install```
+
+```yarn compile```
+
+```yarn start```
+
