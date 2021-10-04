@@ -24,3 +24,7 @@ To compile run the following:
 
 ```yarn start```
 
+## Notes
+1) If you need to refresh your L2 balance or LINOB Balance just click on your spliced Polyjuice address and it refreshes.
+
+2) If you need the Total Collateral and Total Debt refreshed just connect your wallet and refresh the page, it will then be updated.
