@@ -151,7 +151,7 @@ const DEFAULT_SEND_OPTIONS = {
     placeholder="Enter Deposit Amount" color="white"/>
     <InputRightElement
       pointerEvents="none"
-      children={<Image boxSize="25px" mr="10vw" src={CKBIcon}/>}
+      children={<Image boxSize="25px" mr="12vw" src={CKBIcon}/>}
     />
     <InputRightAddon children="CKB"/>
     </InputGroup>
