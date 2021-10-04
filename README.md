@@ -15,7 +15,7 @@ Assumptions: The website currently assumes you have MetaMask installed with a fu
 
 Live website is available here: [Link to Site](https://000cmvhtgls9kor9059bo61cf9qi14sp9gaa56jli8ut5d4to4egaog.siasky.net/)
 
-## Compilation
+## Installation
 To compile run the following:
 
 ```yarn && npm install```
