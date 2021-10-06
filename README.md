@@ -25,6 +25,7 @@ To compile run the following:
 
 ```yarn start```
 
+Node v12 or higher is required
 ## Notes
 1) If you need to refresh your L2 balance or LINOB Balance just click on your spliced Polyjuice address and it refreshes.
 
