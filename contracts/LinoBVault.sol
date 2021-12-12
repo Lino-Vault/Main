@@ -3,8 +3,9 @@
 pragma solidity >=0.8.0;
 
 import "@chainlink/contracts/src/v0.8/interfaces/FeedRegistryInterface.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract LinoBVault {
+contract LinoBVault is Ownable{
 
     uint256 totalDeposits;
 
@@ -68,6 +69,10 @@ contract LinoBVault {
             uint80 answeredInRound
         ) = ckb_usd_price_feed.latestRoundData(0x0000000000000000000000000000000000000001, 0x0000000000000000000000000000000000000348);
         return price;
+    }
+
+    function setStableCoinAddress(address newStableCoinAddress) public onlyOwner {
+        stableCoinAddress = newStableCoinAddress;
     }
 
     function liquidate(address riskyaccount) public {
