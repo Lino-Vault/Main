@@ -25,7 +25,7 @@ contract LinoBVault is Ownable{
     function deposit() public payable {
         require(msg.value > 0, "Deposit has to be greater than 0.");
 
-        (uint80 roundID, int price, uint startedAt, uint timeStamp, uint80 answeredInRound) = ckb_usd_price_feed.latestRoundData(0x0000000000000000000000000000000000000001, 0x0000000000000000000000000000000000000348);
+        (, int256 price, , , ) = ckb_usd_price_feed.latestRoundData(0x0000000000000000000000000000000000000001, 0x0000000000000000000000000000000000000348);
 
         if(depositAmount[msg.sender] == 0) {
             uint256 stableMintAmount = msg.value * uint256(price) / 10e7 / 2;
@@ -61,15 +61,13 @@ contract LinoBVault is Ownable{
         ckb_ratio[msg.sender] = 0;
     }
 
-    function getCKBUSDPrice() public view returns (int) {
-        (uint80 roundID,
-            int price,
-            uint startedAt,
-            uint timeStamp,
-            uint80 answeredInRound
-        ) = ckb_usd_price_feed.latestRoundData(0x0000000000000000000000000000000000000001, 0x0000000000000000000000000000000000000348);
-        return price;
-    }
+    function getPriceSource() public view returns (uint256) {
+    // And get the latest round data
+    (, int256 price, , , ) = ckb_usd_price_feed.latestRoundData(0x0000000000000000000000000000000000000001,0x0000000000000000000000000000000000000348);
+    require(price >= 0, 'Chainlink returned a negative price');
+
+    return uint256(price);
+  }
 
     function setStableCoinAddress(address newStableCoinAddress) public onlyOwner {
         stableCoinAddress = newStableCoinAddress;
