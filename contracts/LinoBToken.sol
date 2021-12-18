@@ -10,18 +10,34 @@ contract LinoBux is ERC20, ERC20Burnable, Ownable, AccessControl {
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
+    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
+
+    address[] public vaults;
 
     constructor() ERC20("LinoBux", "LINOB") {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _setupRole(MINTER_ROLE, msg.sender);
+        _setupRole(BURNER_ROLE, msg.sender);
+        _setupDecimals(8);
     }
 
-    function mint(address to, uint256 amount) public {
-        require(hasRole(MINTER_ROLE, msg.sender), "Caller is not a minter");
-        _mint(to, amount);
+    // Token functions
+
+    function mint(address account, uint256 amount) external onlyRole(
+        MINTER_ROLE
+        ) {
+        _mint(account, amount);
     }
 
-    function burn(address from, uint256 amount) public {
-        require(hasRole(BURNER_ROLE, msg.sender), "Caller is not a burner");
+    function burn(address from, uint256 amount) external onlyRole(
+        BURNER_ROLE) {
         _burn(from, amount);
     }
+
+    function addMinter(address account) external onlyOwner {
+        _setupRole(MINTER_ROLE, account);
+    }
+
+    // New
+
 }
