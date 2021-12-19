@@ -11,12 +11,6 @@ import CONFIG from '../src/config.js';
         )
     );
 
-    const LinoBuxJSON = JSON.parse(
-        await readFile(
-            new URL('../src/artifacts/contracts/LinoBToken.sol/LinoBux.json', import.meta.url)
-        )
-    );
-
     const DEFAULT_SEND_OPTIONS = {
         gas: 1000000,
         gasPrice: 0
@@ -37,7 +31,6 @@ import CONFIG from '../src/config.js';
 
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
-    const tokenContract = new web3.eth.Contract(LinoBuxJSON.abi, "0x76FebBBE670De113b78858edB2a831A63fB9bB06");
 
    const myContract = new web3.eth.Contract(LinoBVaultJSON.abi);
     const contractInstance = await myContract
@@ -51,9 +44,10 @@ import CONFIG from '../src/config.js';
 
     console.log(`Deployed vault contract: ${contractInstance.options.address}`);
 
-    const ownershipTransfer = await tokenContract.methods.transferOwnership(contractInstance.options.address).send({
+/*    const ownershipTransfer = await tokenContract.methods.transferOwnership(contractInstance.options.address).send({
               ...DEFAULT_SEND_OPTIONS,
               from: USER_ONE.address
           });
         console.log(`Transfered ownership successfully.`)
+        */
 })();

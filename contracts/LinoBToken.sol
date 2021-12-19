@@ -18,7 +18,6 @@ contract LinoBux is ERC20, ERC20Burnable, Ownable, AccessControl {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(MINTER_ROLE, msg.sender);
         _setupRole(BURNER_ROLE, msg.sender);
-        _setupDecimals(8);
     }
 
     // Token functions
@@ -39,5 +38,8 @@ contract LinoBux is ERC20, ERC20Burnable, Ownable, AccessControl {
     }
 
     // New
+    function decimals() public view virtual override returns (uint8) {
+        return 8;
+    }
 
 }

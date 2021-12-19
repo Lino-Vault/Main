@@ -5,7 +5,6 @@ pragma solidity >=0.8.0;
 import '@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol';
 
 import "@chainlink/contracts/src/v0.8/interfaces/FeedRegistryInterface.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 
 import '@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol';
 import '@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol';
@@ -20,8 +19,7 @@ import '@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 
 import './interfaces/IStablecoin.sol';
 
-contract LinoBVault is 
-    Ownable, 
+contract LinoBVault is  
     Initializable,
     ERC721Upgradeable,
     ReentrancyGuardUpgradeable,
@@ -38,6 +36,7 @@ contract LinoBVault is
     uint256 public totalDebt;
     uint256 public closingFee;
     uint256 public openingFee;
+    uint256 public tokenPeg;
     uint256 public debtCeiling;
     uint256 public minimumCollateralPercentage;
     uint256 public totalDeposits;
@@ -86,6 +85,7 @@ contract LinoBVault is
     //Events for collateral
     event DepositCollateral(uint256 safeID, uint256 amount);
     event WithdrawCollateral(uint256 safeID, uint256 amount);
+    event DepositCKB(uint256 safeID, uint256 amount);
 
     //Events for stablecoin action
     event BorrowToken(uint256 safeID, uint256 amount);
@@ -123,14 +123,18 @@ contract LinoBVault is
         string memory symbol_,
         address token_
         ) public initializer {
-
+        __Context_init_unchained();
+        __ERC165_init_unchained();
         __ERC721_init_unchained(name_, symbol_);
         __ERC721Enumerable_init_unchained();
+        __ReentrancyGuard_init_unchained();
+        __AccessControl_init_unchained();
+        
         assert(priceSource_ != address(0));
         assert(minimumCollateralPercentage_ >= 100);
 
         //Starting settings
-        debtCeiling = 10e18 // 10 dollars
+        debtCeiling = 10e18; // 10 dollars
         closingFee = 75; // 0.75%
         openingFee = 0; // 0.0%
         tokenPeg = 1e8; // $1
@@ -282,8 +286,7 @@ contract LinoBVault is
 
         require(debtValue >= 0, 'Debt must be above 0');
 
-        uint256 collateralPercentage = (collateralValueTimes100 *
-            (10**8) / debtValue;
+        uint256 collateralPercentage = collateralValueTimes100 * 10**8 / debtValue;
 
         //Check if it is above the minimum i.e 220
         return collateralPercentage >= minimumCollateralPercentage;
@@ -347,7 +350,7 @@ contract LinoBVault is
     function depositCollateral(uint256 safeID, uint256 amount)
     external
     onlySafeOwner(safeID) {
-        token.safeTranferFrom(msg.sender, address(this), amount);
+        token.safeTransferFrom(msg.sender, address(this), amount);
 
         uint256 newCollateral = safeCollateral[safeID] + amount;
 
@@ -370,7 +373,7 @@ contract LinoBVault is
    *
    * Emits BorrowToken event
    */
-   function borrowToken(uint256 safeID)
+   function borrowToken(uint256 safeID, uint256 amount)
    external
    payable
    onlySafeOwner(safeID)
@@ -378,11 +381,11 @@ contract LinoBVault is
    mintingNotPaused {
     require(amount > 0, 'Must borrow more than zero');
     require(
-        totalDebt + msg.value <= debtCeiling,
+        totalDebt + amount <= debtCeiling,
         'Cannot mint over debt ceiling'
         );
 
-    uint256 newDebt = safeDebt[safeID] + msg.value;
+    uint256 newDebt = safeDebt[safeID] + amount;
 
     require(
         isValidCollateral(safeCollateral[safeID], newDebt),
@@ -395,10 +398,10 @@ contract LinoBVault is
         );
 
     //Mint stablecoin for the user
-    _addSafeDebt(safeID, msg.value);
+    _addSafeDebt(safeID, amount);
     //should have minter role
-    stablecoin.mint(msg.sender, msg.value);
-    emit BorrowToken(safeID, msg.value);
+    stablecoin.mint(msg.sender, amount);
+    emit BorrowToken(safeID, amount);
    }
 
 /**
@@ -482,6 +485,8 @@ contract LinoBVault is
         assert(newCollateral >= safeCollateral[safeID]);
 
         safeCollateral[safeID] = newCollateral;
+
+        emit DepositCKB(safeID, msg.value);
     }
 
     constructor() {
@@ -499,14 +504,14 @@ contract LinoBVault is
 
             depositAmount[msg.sender] = msg.value;
             totalDeposits = totalDeposits + msg.value;
-            ckb_ratio[msg.sender] = depositAmount[msg.sender] * uint256(price) / stableCoinAmount[msg.sender];
+            ckb_ratio[msg.sender] = depositAmount[msg.sender] * getPriceSource() / stableCoinAmount[msg.sender];
         }
 
         else {
             depositAmount[msg.sender] = depositAmount[msg.sender]+ msg.value;
             totalDeposits = totalDeposits + msg.value;
 
-            ckb_ratio[msg.sender] = depositAmount[msg.sender] * uint256(price) / stableCoinAmount[msg.sender];
+            ckb_ratio[msg.sender] = depositAmount[msg.sender] * getPriceSource() / stableCoinAmount[msg.sender];
         }
     }
 
@@ -526,21 +531,6 @@ contract LinoBVault is
     }
 
 
-  function setPriceSource(address priceSource_) external onlyOwner{
-
-    require(priceSource_ != address(0),
-        'Price source cannot be zero address'
-        );
-    
-    priceSource = AggregatorV3Interface(priceSource_);
-
-    emit NewPriceSource(priceSource_);
-  }
-
-    function setStableCoinAddress(address newStableCoinAddress) public onlyOwner {
-        stableCoinAddress = newStableCoinAddress;
-    }
-
     function liquidate(address riskyaccount) public {
         require(stableContract.balanceOf(msg.sender) >= stableCoinAmount[riskyaccount]);
         
@@ -553,7 +543,7 @@ contract LinoBVault is
 
             address payable to = payable(msg.sender);
 
-            uint256 liquidatorfee = (stableCoinAmount[riskyaccount] / 20 + stableCoinAmount[riskyaccount]) / uint256(price);
+            uint256 liquidatorfee = (stableCoinAmount[riskyaccount] / 20 + stableCoinAmount[riskyaccount]) / getPriceSource();
             to.transfer(liquidatorfee);
 
             stableContract.burn(stableCoinAmount[riskyaccount]);
@@ -632,10 +622,37 @@ contract LinoBVault is
     //Subtrcts debt from total debt amount
     function _subFromTotalDebt(uint256 amount) internal {
         require(amount <= totalDebt, 'Debt can not go below 0');
-        uint256 newDebt = totalDebt - amountl
+        uint256 newDebt = totalDebt - amount;
 
         totalDebt = newDebt;
     }
+
+    function _transfer(
+    address from,
+    address to,
+    uint256 tokenId
+  ) internal pure override {
+    revert('transfer: disabled');
+  }
+
+  function supportsInterface(bytes4 interfaceId)
+    public
+    view
+    virtual
+    override(ERC721Upgradeable,ERC721EnumerableUpgradeable,AccessControlUpgradeable)
+    returns (bool)
+  {
+    return super.supportsInterface(interfaceId);
+  }
+
+  function _beforeTokenTransfer(
+    address from,
+    address to,
+    uint256 tokenId
+  ) internal override(ERC721Upgradeable, ERC721EnumerableUpgradeable) {
+    super._beforeTokenTransfer(from, to, tokenId);
+  }
+
 }
 
 abstract contract LinoBToken {
