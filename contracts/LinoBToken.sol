@@ -37,6 +37,10 @@ contract LinoBux is ERC20, ERC20Burnable, Ownable, AccessControl {
         _setupRole(MINTER_ROLE, account);
     }
 
+    function addBurner(address account) external onlyOwner {
+        _setupRole(BURNER_ROLE, account);
+    }
+
     // New
     function decimals() public view virtual override returns (uint8) {
         return 8;

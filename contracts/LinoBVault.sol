@@ -5,6 +5,8 @@ pragma solidity >=0.8.0;
 import '@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol';
 
 import "@chainlink/contracts/src/v0.8/interfaces/FeedRegistryInterface.sol";
+import "@chainlink/contracts/src/v0.8/Denominations.sol";
+
 
 import '@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol';
 import '@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol';
@@ -121,7 +123,8 @@ contract LinoBVault is
         address priceSource_,
         string memory name_,
         string memory symbol_,
-        address token_
+        address token_,
+        address stablecoin_
         ) public initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
@@ -144,7 +147,7 @@ contract LinoBVault is
         priceSource = FeedRegistryInterface(priceSource_);
 
         token = IERC20Metadata(token_);
-        stablecoin = IStablecoin(msg.sender);
+        stablecoin = IStablecoin(stablecoin_);
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(TREASURY_ROLE, msg.sender);
         _setRoleAdmin(TREASURY_ROLE, TREASURY_ROLE);
@@ -245,10 +248,7 @@ contract LinoBVault is
     }
 
     function getPriceSource() public view returns (uint256) {
-        (, int256 price, , , ) = priceSource.latestRoundData(
-            0x0000000000000000000000000000000000000001,
-            0x0000000000000000000000000000000000000348
-            );
+        int256 price = 20000000;
         require(price >= 0, 'Chainlink returned a negative price');
         return uint256(price);
     }
@@ -286,7 +286,7 @@ contract LinoBVault is
 
         require(debtValue >= 0, 'Debt must be above 0');
 
-        uint256 collateralPercentage = collateralValueTimes100 * 10**8 / debtValue;
+        uint256 collateralPercentage = collateralValueTimes100 * 10**(8-token.decimals()) / debtValue;
 
         //Check if it is above the minimum i.e 220
         return collateralPercentage >= minimumCollateralPercentage;
@@ -465,7 +465,7 @@ contract LinoBVault is
     //Clossing fee calculation
     uint256 _closingFee = ((amount*closingFee) * getPricePeg()) /
         (getPriceSource() * 10000) /
-        (10**8);
+        (10**(8-token.decimals()));
 
     _subSafeDebt(safeID, amount);
     _subSafeCollateral(safeID, _closingFee);
@@ -489,9 +489,6 @@ contract LinoBVault is
         emit DepositCKB(safeID, msg.value);
     }
 
-    constructor() {
-        priceSource = FeedRegistryInterface(0x1363bdCE312532F864e84924D54c7dA5eDB5B1BC);
-    }
 
     function deposit() public payable {
         require(msg.value > 0, "Deposit has to be greater than 0.");
