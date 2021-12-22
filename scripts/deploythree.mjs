@@ -11,15 +11,15 @@ import CONFIG from '../src/config.js';
         )
     );
 
-    const LinoBTokenJSON = JSON.parse(
-        await readFile(
-            new URL('../src/artifacts/contracts/LinoBToken.sol/LinoBux.json', import.meta.url)
-        )
-    );
-
     const LinoBVaultJSON = JSON.parse(
         await readFile(
             new URL('../src/artifacts/contracts/LinoBVault.sol/LinoBVault.json', import.meta.url)
+        )
+    );
+
+    const LinoBTokenJSON = JSON.parse(
+        await readFile(
+            new URL('../src/artifacts/contracts/LinoBToken.sol/LinoBux.json', import.meta.url)
         )
     );
 

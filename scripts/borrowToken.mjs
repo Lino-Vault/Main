@@ -33,10 +33,10 @@ import CONFIG from '../src/config.js';
 
    const myContract = new web3.eth.Contract(LinoBVaultJSON.abi, "0x443B7B1b4661F8Cb2e37eF79444BB02D58d4F6aB");
 
-   const initialize = await myContract.methods.createSafe().send({
+   const initialize = await myContract.methods.borrowToken(1, "900000000").send({
        ...DEFAULT_SEND_OPTIONS,
        from: USER_ONE.address
    });
-   console.log('Created safe sucessfully.')
+   console.log('Borrowed 9 LINOB successfully.')
 
 })();

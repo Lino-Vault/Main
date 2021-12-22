@@ -31,13 +31,13 @@ import CONFIG from '../src/config.js';
 
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
-   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi, "0xaE88EB7BFF659f6a230658397e3B0D5b495d07Fb");
+   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi, "0x443B7B1b4661F8Cb2e37eF79444BB02D58d4F6aB");
 
    const initialize = await myContract.methods.depositCKB(1).send({
        ...DEFAULT_SEND_OPTIONS,
        from: USER_ONE.address,
-       value:5000000000
+       value:100000000000
    });
-   console.log('Deposited 50 CKB successfully.')
+   console.log('Deposited 1000 CKB successfully.')
 
 })();

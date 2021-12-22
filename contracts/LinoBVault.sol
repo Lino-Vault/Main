@@ -257,11 +257,11 @@ contract LinoBVault is
     internal
     view
     returns (uint256, uint256) {
-        require(getPrice("CKB", "USD") != 0, 'Price must be above 0');
+        require(uint256(getPrice("CKB", "USD")) != 0, 'Price must be above 0');
         require(getPricePeg() != 0, 'Peg must be above 0');
 
         //Calculate collateral value
-        uint256 collateralValue = collateral * getPrice("CKB", "USD");
+        uint256 collateralValue = collateral * uint256(getPrice("CKB", "USD"));
 
         // Calculate current debt value in our token ie usdc
         uint256 debtValue = debt * getPricePeg();
@@ -460,7 +460,7 @@ contract LinoBVault is
 
     //Clossing fee calculation
     uint256 _closingFee = ((amount*closingFee) * getPricePeg()) /
-        (getPrice("CKB", "USD") * 10000) /
+        (uint256(getPrice("CKB", "USD")) * 10000) /
         (10**(8-token.decimals()));
 
     _subSafeDebt(safeID, amount);

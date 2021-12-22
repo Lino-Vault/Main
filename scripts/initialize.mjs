@@ -31,9 +31,9 @@ import CONFIG from '../src/config.js';
 
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
-   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi, "0xaE88EB7BFF659f6a230658397e3B0D5b495d07Fb");
+   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi, "0x443B7B1b4661F8Cb2e37eF79444BB02D58d4F6aB");
 
-   const initialize = await myContract.methods.initialize(200, "0x1363bdCE312532F864e84924D54c7dA5eDB5B1BC", "ETHLVault", "ETHV", "0x76FebBBE670De113b78858edB2a831A63fB9bB06").send({
+   const initialize = await myContract.methods.initialize(200, "0x633B14f58A1343Aeb43e9C68c8aFB4c866eBb649", "CKBLVault", "CKBV", "0x614379D8796AE07b5e5Cb058c1500387F5672bAB", "0xaF0379AEbb17581aa9FfFAdA6e1157126D098Ae9").send({
        ...DEFAULT_SEND_OPTIONS,
        from: USER_ONE.address
    });

@@ -11,8 +11,6 @@ import CONFIG from '../src/config.js';
         )
     );
 
-    
-
     const DEFAULT_SEND_OPTIONS = {
         gas: 1000000,
         gasPrice: 0

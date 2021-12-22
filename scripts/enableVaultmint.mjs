@@ -5,9 +5,10 @@ import { readFile } from 'fs/promises';
 import CONFIG from '../src/config.js';
 
 (async () => {
-    const LinoBVaultJSON = JSON.parse(
+
+    const LinoBTokenJSON = JSON.parse(
         await readFile(
-            new URL('../src/artifacts/contracts/LinoBVault.sol/LinoBVault.json', import.meta.url)
+            new URL('../src/artifacts/contracts/LinoBToken.sol/LinoBux.json', import.meta.url)
         )
     );
 
@@ -31,12 +32,12 @@ import CONFIG from '../src/config.js';
 
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
-   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi, "0x443B7B1b4661F8Cb2e37eF79444BB02D58d4F6aB");
-
-   const initialize = await myContract.methods.createSafe().send({
+    const tokenContract = new web3.eth.Contract(LinoBTokenJSON.abi, "0xaF0379AEbb17581aa9FfFAdA6e1157126D098Ae9");
+    
+    const addedMint = await tokenContract.methods.addBurner("0x443B7B1b4661F8Cb2e37eF79444BB02D58d4F6aB").send({
        ...DEFAULT_SEND_OPTIONS,
        from: USER_ONE.address
    });
-   console.log('Created safe sucessfully.')
+   console.log("Added minter successfully.")
 
 })();
