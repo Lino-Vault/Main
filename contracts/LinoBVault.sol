@@ -4,10 +4,6 @@ pragma solidity >=0.8.0;
 
 import '@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol';
 
-import "@chainlink/contracts/src/v0.8/interfaces/FeedRegistryInterface.sol";
-import "@chainlink/contracts/src/v0.8/Denominations.sol";
-
-
 import '@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol';
 import '@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol';
 import '@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol';
@@ -20,6 +16,7 @@ import '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
 import '@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 
 import './interfaces/IStablecoin.sol';
+import './interfaces/IStdReference.sol';
 
 contract LinoBVault is  
     Initializable,
@@ -48,12 +45,12 @@ contract LinoBVault is
     uint256 public gainRatio;
     mapping(address => uint256) public tokenDebt;
 
-    //Chainlink price source
-    FeedRegistryInterface public priceSource;
     //Token provided as debt
     IStablecoin internal stablecoin;
     //Token given as collateral
     IERC20Metadata public token;
+    //Band Oracle source
+    IStdReference public ref;
 
     //Safe that is the treasury
     uint256 public treasury;
@@ -102,7 +99,7 @@ contract LinoBVault is
     event NewClosingFee(uint256 newClosingFee);
     event NewOpeningFee(uint256 newOpeningFee);
     event NewMinimumDebt(uint256 newMinimumDebt);
-    event NewPriceSource(address newPriceSource);
+    event NewPrice(address newPrice);
     event NewTreasury(uint256 newTreasury);
     event BankPaused(bool mintingPaused);
     event NewMinimumCollateralPercentage(uint256 newMinimumCollateralPercentage);
@@ -120,7 +117,7 @@ contract LinoBVault is
 
     function initialize(
         uint256 minimumCollateralPercentage_,
-        address priceSource_,
+        IStdReference ref_,
         string memory name_,
         string memory symbol_,
         address token_,
@@ -133,7 +130,7 @@ contract LinoBVault is
         __ReentrancyGuard_init_unchained();
         __AccessControl_init_unchained();
         
-        assert(priceSource_ != address(0));
+        assert(address(ref_) != address(0));
         assert(minimumCollateralPercentage_ >= 100);
 
         //Starting settings
@@ -144,7 +141,7 @@ contract LinoBVault is
         debtRatio = 2; // 50%
         gainRatio = 11; // 1.1 or 10%
 
-        priceSource = FeedRegistryInterface(priceSource_);
+        ref = ref_;
 
         token = IERC20Metadata(token_);
         stablecoin = IStablecoin(stablecoin_);
@@ -209,14 +206,14 @@ contract LinoBVault is
         emit NewDebtCeiling(debtCeiling_);
     }
 
-    function setPriceSource(address priceSource_) 
+    function setPrice(IStdReference ref_) 
     external 
     onlyRole(TREASURY_ROLE) {
-        require(priceSource_ != address(0),
+        require(address(ref_) != address(0),
             'Price source cannot be zero address'
             );
-        priceSource = FeedRegistryInterface(priceSource_);
-        emit NewPriceSource(priceSource_);
+        ref = ref_;
+        emit NewPrice(address(ref_));
     }
 
     function setTokenPeg(uint256 tokenPeg_) external onlyRole(TREASURY_ROLE) {
@@ -247,10 +244,9 @@ contract LinoBVault is
         mintingPaused = paused_;
     }
 
-    function getPriceSource() public view returns (uint256) {
-        int256 price = 20000000;
-        require(price >= 0, 'Chainlink returned a negative price');
-        return uint256(price);
+    function getPrice(string memory base, string memory quote) internal view returns (uint256){
+        IStdReference.ReferenceData memory data = ref.getReferenceData(base,quote);
+        return data.rate;
     }
 
     function getPricePeg() public view returns (uint256) {
@@ -261,11 +257,11 @@ contract LinoBVault is
     internal
     view
     returns (uint256, uint256) {
-        require(getPriceSource() != 0, 'Price must be above 0');
+        require(getPrice("CKB", "USD") != 0, 'Price must be above 0');
         require(getPricePeg() != 0, 'Peg must be above 0');
 
         //Calculate collateral value
-        uint256 collateralValue = collateral * getPriceSource();
+        uint256 collateralValue = collateral * getPrice("CKB", "USD");
 
         // Calculate current debt value in our token ie usdc
         uint256 debtValue = debt * getPricePeg();
@@ -464,7 +460,7 @@ contract LinoBVault is
 
     //Clossing fee calculation
     uint256 _closingFee = ((amount*closingFee) * getPricePeg()) /
-        (getPriceSource() * 10000) /
+        (getPrice("CKB", "USD") * 10000) /
         (10**(8-token.decimals()));
 
     _subSafeDebt(safeID, amount);
@@ -487,72 +483,6 @@ contract LinoBVault is
         safeCollateral[safeID] = newCollateral;
 
         emit DepositCKB(safeID, msg.value);
-    }
-
-
-    function deposit() public payable {
-        require(msg.value > 0, "Deposit has to be greater than 0.");
-
-        if(depositAmount[msg.sender] == 0) {
-            uint256 stableMintAmount = msg.value * getPriceSource() / 10e7 / 2;
-
-            stableContract.mint(msg.sender, stableMintAmount);
-            stableCoinAmount[msg.sender] = stableMintAmount;
-
-            depositAmount[msg.sender] = msg.value;
-            totalDeposits = totalDeposits + msg.value;
-            ckb_ratio[msg.sender] = depositAmount[msg.sender] * getPriceSource() / stableCoinAmount[msg.sender];
-        }
-
-        else {
-            depositAmount[msg.sender] = depositAmount[msg.sender]+ msg.value;
-            totalDeposits = totalDeposits + msg.value;
-
-            ckb_ratio[msg.sender] = depositAmount[msg.sender] * getPriceSource() / stableCoinAmount[msg.sender];
-        }
-    }
-
-    function withdraw() public {
-        require(depositAmount[msg.sender] > 0, "You have no outstanding loans.");
-        require(stableContract.balanceOf(msg.sender) >= stableCoinAmount[msg.sender], "You don't have enough LINOB.");
-
-        stableContract.transferFrom(msg.sender, address(this), stableCoinAmount[msg.sender]);
-        stableContract.burn(stableCoinAmount[msg.sender]);
-
-        address payable to = payable(msg.sender);
-        to.transfer(depositAmount[msg.sender]);
-
-        depositAmount[msg.sender] = 0;
-        stableCoinAmount[msg.sender] = 0;
-        ckb_ratio[msg.sender] = 0;
-    }
-
-
-    function liquidate(address riskyaccount) public {
-        require(stableContract.balanceOf(msg.sender) >= stableCoinAmount[riskyaccount]);
-        
-        if(ckb_ratio[riskyaccount] > 150000000){
-            revert("Ratio is not below 150%");
-        }
-
-        else if(ckb_ratio[riskyaccount] < 150000000 && ckb_ratio[riskyaccount] > 0){
-            stableContract.transferFrom(msg.sender, address(this), stableCoinAmount[riskyaccount]);
-
-            address payable to = payable(msg.sender);
-
-            uint256 liquidatorfee = (stableCoinAmount[riskyaccount] / 20 + stableCoinAmount[riskyaccount]) / getPriceSource();
-            to.transfer(liquidatorfee);
-
-            stableContract.burn(stableCoinAmount[riskyaccount]);
-
-            depositAmount[riskyaccount] = depositAmount[riskyaccount] - liquidatorfee;
-            stableCoinAmount[riskyaccount] = 0;
-            totalDeposits = totalDeposits - liquidatorfee;
-        }
-
-        else {
-            ckb_ratio[riskyaccount] = depositAmount[riskyaccount] * getPriceSource() / stableCoinAmount[riskyaccount];
-        }
     }
 
     function _addSafeCollateralTreasury(uint256 amount) internal {

@@ -43,12 +43,9 @@ import CONFIG from '../src/config.js';
 
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
-    const vaultContract = new web3.eth.Contract(LinoBVaultJSON.abi, "0x48Ecbd3c6Eef47026111Ef51Ca005CE47D1f3C0a");
+    const vaultContract = new web3.eth.Contract(BandOracleJSON.abi, "0x6533cc1530193bAfE882B3ceDC3B14F7B149A5dA");
     
-    const depositCKB = await vaultContract.methods.destorySafe(1).send({
-       ...DEFAULT_SEND_OPTIONS,
-       from: USER_ONE.address
-   });
-   console.log("Successfully destoryed vault.")
+    const getPrice = await vaultContract.methods.getPrice("CKB", "USD").call();
+   console.log(getPrice / 10**18)
 
 })();
