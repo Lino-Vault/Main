@@ -5,9 +5,10 @@ import { readFile } from 'fs/promises';
 import CONFIG from '../src/config.js';
 
 (async () => {
-    const LinoBVaultJSON = JSON.parse(
+
+    const LinoBTokenJSON = JSON.parse(
         await readFile(
-            new URL('../src/artifacts/contracts/LinoBVault.sol/LinoBVault.json', import.meta.url)
+            new URL('../src/artifacts/contracts/LinoBToken.sol/LinoBux.json', import.meta.url)
         )
     );
 
@@ -32,17 +33,17 @@ import CONFIG from '../src/config.js';
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
 
-   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi);
+   const myContract = new web3.eth.Contract(LinoBTokenJSON.abi);
     const contractInstance = await myContract
         .deploy({
-            data: LinoBVaultJSON.bytecode,
+            data: LinoBTokenJSON.bytecode,
             arguments: []
         })
         .send({
             from: USER_ONE.address
         });
 
-    console.log(`Deployed vault contract: ${contractInstance.options.address}`);
+    console.log(`Deployed stablecoin contract: ${contractInstance.options.address}`);
 
 /*    const ownershipTransfer = await tokenContract.methods.transferOwnership(contractInstance.options.address).send({
               ...DEFAULT_SEND_OPTIONS,

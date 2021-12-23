@@ -31,23 +31,12 @@ import CONFIG from '../src/config.js';
 
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
+   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi, "0x7bd24dfACCCb6F80D6Cb40541842d0A03cf2B908");
 
-   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi);
-    const contractInstance = await myContract
-        .deploy({
-            data: LinoBVaultJSON.bytecode,
-            arguments: []
-        })
-        .send({
-            from: USER_ONE.address
-        });
+   const initialize = await myContract.methods.borrowToken(1, "900000000").send({
+       ...DEFAULT_SEND_OPTIONS,
+       from: USER_ONE.address
+   });
+   console.log('Borrowed 9 LINOB successfully.')
 
-    console.log(`Deployed vault contract: ${contractInstance.options.address}`);
-
-/*    const ownershipTransfer = await tokenContract.methods.transferOwnership(contractInstance.options.address).send({
-              ...DEFAULT_SEND_OPTIONS,
-              from: USER_ONE.address
-          });
-        console.log(`Transfered ownership successfully.`)
-        */
 })();

@@ -45,7 +45,7 @@ export default function VaultInfo() {
           const values = BigInt(await contract.methods.depositAmount(polyjuiceAddress).call());
           setLockedCKB(values);
 
-          const price = await contract.methods.getCKBUSDPrice().call();
+          const price = await contract.methods.getPriceSource().call();
 
           if(values > 0){
           // eslint-disable-next-line no-undef

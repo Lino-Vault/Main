@@ -5,9 +5,21 @@ import { readFile } from 'fs/promises';
 import CONFIG from '../src/config.js';
 
 (async () => {
+    const WCKBJSON = JSON.parse(
+        await readFile(
+            new URL('../src/artifacts/contracts/WCKB.sol/WCKB.json', import.meta.url)
+        )
+    );
+
     const LinoBVaultJSON = JSON.parse(
         await readFile(
             new URL('../src/artifacts/contracts/LinoBVault.sol/LinoBVault.json', import.meta.url)
+        )
+    );
+
+    const LinoBTokenJSON = JSON.parse(
+        await readFile(
+            new URL('../src/artifacts/contracts/LinoBToken.sol/LinoBux.json', import.meta.url)
         )
     );
 
@@ -31,23 +43,9 @@ import CONFIG from '../src/config.js';
 
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
+    const vaultContract = new web3.eth.Contract(LinoBVaultJSON.abi, "0xDfe18d323990A80726715e1b9684d936FC545638");
+    
+    const getPrice = await vaultContract.methods.getPrice("CKB", "USD").call();
+   console.log(getPrice)
 
-   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi);
-    const contractInstance = await myContract
-        .deploy({
-            data: LinoBVaultJSON.bytecode,
-            arguments: []
-        })
-        .send({
-            from: USER_ONE.address
-        });
-
-    console.log(`Deployed vault contract: ${contractInstance.options.address}`);
-
-/*    const ownershipTransfer = await tokenContract.methods.transferOwnership(contractInstance.options.address).send({
-              ...DEFAULT_SEND_OPTIONS,
-              from: USER_ONE.address
-          });
-        console.log(`Transfered ownership successfully.`)
-        */
 })();
