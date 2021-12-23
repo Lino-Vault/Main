@@ -460,7 +460,7 @@ contract LinoBVault is
 
     //Clossing fee calculation
     uint256 _closingFee = ((amount*closingFee) * getPricePeg()) /
-        (uint256(getPrice("CKB", "USD")) * 10000) /
+        ((uint256(getPrice("CKB", "USD")/1e10)) * 10000) /
         (10**(8-8));
 
     _subSafeDebt(safeID, amount);
