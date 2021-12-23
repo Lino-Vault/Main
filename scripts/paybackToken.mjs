@@ -5,10 +5,9 @@ import { readFile } from 'fs/promises';
 import CONFIG from '../src/config.js';
 
 (async () => {
-
-    const LinoBTokenJSON = JSON.parse(
+    const LinoBVaultJSON = JSON.parse(
         await readFile(
-            new URL('../src/artifacts/contracts/LinoBToken.sol/LinoBux.json', import.meta.url)
+            new URL('../src/artifacts/contracts/LinoBVault.sol/LinoBVault.json', import.meta.url)
         )
     );
 
@@ -32,12 +31,12 @@ import CONFIG from '../src/config.js';
 
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
-    const tokenContract = new web3.eth.Contract(LinoBTokenJSON.abi, "0xbc756500F508b3a212B1084C5D9f730B9c8213c2");
-    
-    const addedMint = await tokenContract.methods.addBurner("0x7bd24dfACCCb6F80D6Cb40541842d0A03cf2B908").send({
+   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi, "0x7bd24dfACCCb6F80D6Cb40541842d0A03cf2B908");
+
+   const initialize = await myContract.methods.paybackToken(1, "900000000").send({
        ...DEFAULT_SEND_OPTIONS,
        from: USER_ONE.address
    });
-   console.log("Added burner successfully.")
+   console.log('Paid back 9 LINOB.')
 
 })();

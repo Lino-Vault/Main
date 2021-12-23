@@ -244,7 +244,7 @@ contract LinoBVault is
         mintingPaused = paused_;
     }
 
-    function getPrice(string memory base, string memory quote) internal view returns (uint256){
+    function getPrice(string memory base, string memory quote) public view returns (uint256){
         IStdReference.ReferenceData memory data = ref.getReferenceData(base,quote);
         return data.rate;
     }
@@ -261,7 +261,7 @@ contract LinoBVault is
         require(getPricePeg() != 0, 'Peg must be above 0');
 
         //Calculate collateral value
-        uint256 collateralValue = collateral * uint256(getPrice("CKB", "USD"));
+        uint256 collateralValue = collateral * (uint256(getPrice("CKB", "USD")/1e10));
 
         // Calculate current debt value in our token ie usdc
         uint256 debtValue = debt * getPricePeg();
@@ -282,7 +282,7 @@ contract LinoBVault is
 
         require(debtValue >= 0, 'Debt must be above 0');
 
-        uint256 collateralPercentage = collateralValueTimes100 * 10**(8-token.decimals()) / debtValue;
+        uint256 collateralPercentage = collateralValueTimes100 * 10**(8-8) / debtValue;
 
         //Check if it is above the minimum i.e 220
         return collateralPercentage >= minimumCollateralPercentage;
@@ -461,7 +461,7 @@ contract LinoBVault is
     //Clossing fee calculation
     uint256 _closingFee = ((amount*closingFee) * getPricePeg()) /
         (uint256(getPrice("CKB", "USD")) * 10000) /
-        (10**(8-token.decimals()));
+        (10**(8-8));
 
     _subSafeDebt(safeID, amount);
     _subSafeCollateral(safeID, _closingFee);

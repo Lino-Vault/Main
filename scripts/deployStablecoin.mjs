@@ -43,7 +43,7 @@ import CONFIG from '../src/config.js';
             from: USER_ONE.address
         });
 
-    console.log(`Deployed token contract: ${contractInstance.options.address}`);
+    console.log(`Deployed stablecoin contract: ${contractInstance.options.address}`);
 
 /*    const ownershipTransfer = await tokenContract.methods.transferOwnership(contractInstance.options.address).send({
               ...DEFAULT_SEND_OPTIONS,

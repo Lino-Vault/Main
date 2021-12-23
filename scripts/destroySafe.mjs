@@ -31,12 +31,12 @@ import CONFIG from '../src/config.js';
 
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
-   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi, "0x443B7B1b4661F8Cb2e37eF79444BB02D58d4F6aB");
+   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi, "0x7bd24dfACCCb6F80D6Cb40541842d0A03cf2B908");
 
    const initialize = await myContract.methods.destorySafe(1).send({
        ...DEFAULT_SEND_OPTIONS,
        from: USER_ONE.address
    });
-   console.log('Destoryed safe.')
+   console.log('Destroyed safe.')
 
 })();

@@ -43,9 +43,9 @@ import CONFIG from '../src/config.js';
 
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
-    const vaultContract = new web3.eth.Contract(BandOracleJSON.abi, "0x6533cc1530193bAfE882B3ceDC3B14F7B149A5dA");
+    const vaultContract = new web3.eth.Contract(LinoBVaultJSON.abi, "0xDfe18d323990A80726715e1b9684d936FC545638");
     
     const getPrice = await vaultContract.methods.getPrice("CKB", "USD").call();
-   console.log(getPrice / 10**18)
+   console.log(getPrice)
 
 })();
