@@ -5,9 +5,9 @@ import { readFile } from 'fs/promises';
 import CONFIG from '../src/config.js';
 
 (async () => {
-    const LinoBVaultJSON = JSON.parse(
+    const CKBVaultJSON = JSON.parse(
         await readFile(
-            new URL('../src/artifacts/contracts/LinoBVault.sol/LinoBVault.json', import.meta.url)
+            new URL('../src/artifacts/contracts/CKBVault.sol/CKBVault.json', import.meta.url)
         )
     );
 
@@ -32,10 +32,10 @@ import CONFIG from '../src/config.js';
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
 
-   const myContract = new web3.eth.Contract(LinoBVaultJSON.abi);
+   const myContract = new web3.eth.Contract(CKBVaultJSON.abi);
     const contractInstance = await myContract
         .deploy({
-            data: LinoBVaultJSON.bytecode,
+            data: CKBVaultJSON.bytecode,
             arguments: []
         })
         .send({

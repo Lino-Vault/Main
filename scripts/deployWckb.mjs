@@ -22,7 +22,10 @@ import CONFIG from '../src/config.js';
         web3Url: CONFIG.HTTP_RPC_URL
     };
 
-    const provider = new PolyjuiceHttpProvider(providerConfig.web3Url, providerConfig);
+    const provider = new PolyjuiceHttpProvider(
+        providerConfig.web3Url,
+        providerConfig
+        );
 
     const polyjuiceAccounts = new PolyjuiceAccounts(providerConfig);
 
@@ -34,6 +37,7 @@ import CONFIG from '../src/config.js';
 
 
    const myContract = new web3.eth.Contract(WCKBJSON.abi);
+   
     const contractInstance = await myContract
         .deploy({
             data: WCKBJSON.bytecode,

@@ -15,10 +15,10 @@ import '@openzeppelin/contracts/utils/Address.sol';
 import '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
 import '@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol';
 
-import './interfaces/IStablecoin.sol';
+import './interfaces/ILino.sol';
 import './interfaces/IStdReference.sol';
 
-contract LinoBVault is  
+contract CKBVault is  
     Initializable,
     ERC721Upgradeable,
     ReentrancyGuardUpgradeable,
@@ -104,12 +104,6 @@ contract LinoBVault is
     event BankPaused(bool mintingPaused);
     event NewMinimumCollateralPercentage(uint256 newMinimumCollateralPercentage);
 
-
-
-    address public stableCoinAddress = 0x76FebBBE670De113b78858edB2a831A63fB9bB06;
-    LinoBToken public stableContract = LinoBToken(stableCoinAddress);
-
-
     mapping (address => uint256) public depositAmount;
     mapping (address => uint256) public stableCoinAmount;
     mapping(address => uint256) public stableCoinDebt;
@@ -120,8 +114,7 @@ contract LinoBVault is
         IStdReference ref_,
         string memory name_,
         string memory symbol_,
-        address token_,
-        address stablecoin_
+        address token_
         ) public initializer {
         __Context_init_unchained();
         __ERC165_init_unchained();
@@ -144,7 +137,7 @@ contract LinoBVault is
         ref = ref_;
 
         token = IERC20Metadata(token_);
-        stablecoin = IStablecoin(stablecoin_);
+        stablecoin = IStablecoin(msg.sender);
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _setupRole(TREASURY_ROLE, msg.sender);
         _setRoleAdmin(TREASURY_ROLE, TREASURY_ROLE);
@@ -579,12 +572,4 @@ contract LinoBVault is
   ) internal override(ERC721Upgradeable, ERC721EnumerableUpgradeable) {
     super._beforeTokenTransfer(from, to, tokenId);
   }
-
-}
-
-abstract contract LinoBToken {
-    function mint(address to, uint256 amount) public virtual;
-    function burn(uint256 amount) public virtual;
-    function transferFrom(address sender, address recipient, uint256 amount) external virtual returns (bool);
-    function balanceOf(address account) public virtual returns (uint256);
 }
