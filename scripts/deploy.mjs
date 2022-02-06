@@ -5,17 +5,11 @@ import { readFile } from 'fs/promises';
 import CONFIG from '../src/config.js';
 
 (async () => {
-    const CKBVaultJSON = JSON.parse(
+    const SimpleStorageJSON = JSON.parse(
         await readFile(
-            new URL('../src/artifacts/contracts/CKBVault.sol/CKBVault.json', import.meta.url)
+            new URL('../src/artifacts/contracts/SimpleStorage.sol/SimpleStorage.json', import.meta.url)
         )
     );
-
-    const DEFAULT_SEND_OPTIONS = {
-        gas: 1000000,
-        gasPrice: 0
-      };
-
 
     const providerConfig = {
         web3Url: CONFIG.HTTP_RPC_URL
@@ -31,23 +25,15 @@ import CONFIG from '../src/config.js';
 
     const USER_ONE = web3.eth.accounts.wallet.add(CONFIG.USER_ONE_PRIVATE_KEY);
 
-
-   const myContract = new web3.eth.Contract(CKBVaultJSON.abi);
+    const myContract = new web3.eth.Contract(SimpleStorageJSON.abi);
     const contractInstance = await myContract
         .deploy({
-            data: CKBVaultJSON.bytecode,
+            data: SimpleStorageJSON.bytecode,
             arguments: []
         })
         .send({
             from: USER_ONE.address
         });
 
-    console.log(`Deployed vault contract: ${contractInstance.options.address}`);
-
-/*    const ownershipTransfer = await tokenContract.methods.transferOwnership(contractInstance.options.address).send({
-              ...DEFAULT_SEND_OPTIONS,
-              from: USER_ONE.address
-          });
-        console.log(`Transfered ownership successfully.`)
-        */
+    console.log(`Deployed contract: ${contractInstance.options.address}`);
 })();

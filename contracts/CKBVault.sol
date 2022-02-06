@@ -166,7 +166,7 @@ contract CKBVault is
         return safeExistence[safeID];
     }
 
-    function setMinimumCollateralPercentage(uint256 mcp_) 
+    function setMinimumCollateralPercentage(uint256 mcp_)
     external 
     onlyRole(TREASURY_ROLE) {
         require(
