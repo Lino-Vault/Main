@@ -3,12 +3,12 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 //
-import Login from './pages/Login';
+import Exchange from './pages/Exchange';
 import Register from './pages/Register';
 import DashboardApp from './pages/DashboardApp';
-import Products from './pages/Products';
-import Blog from './pages/Blog';
-import User from './pages/User';
+import ViewSafes from './pages/ViewSafes';
+import Farming from './pages/Farming';
+import Safes from './pages/Safes';
 import NotFound from './pages/Page404';
 
 // ----------------------------------------------------------------------
@@ -21,10 +21,10 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" replace /> },
         { path: '/dashboard/app', element: <DashboardApp /> },
-        { path: 'safes', element: <User /> },
-        { path: 'view', element: <Products /> },
-        { path: 'farming', element: <Blog /> },
-        { path: 'exchange', element: <Login/>},
+        { path: 'safes', element: <Safes /> },
+        { path: 'view', element: <ViewSafes /> },
+        { path: 'farming', element: <Farming /> },
+        { path: 'exchange', element: <Exchange/>},
         { path: '/', element: <Navigate to="/dashboard/app" /> },
       ]
     },

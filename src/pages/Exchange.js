@@ -69,7 +69,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function Login() {
+export default function Exchange() {
   const [alignment, setAlignment] = React.useState('web');
 
   const handleChange = (event, newAlignment) => {
@@ -98,9 +98,19 @@ export default function Login() {
           </Card>
           <Container maxWidth='sm'>
           <Card sx={{ mt:7, backgroundColor: "#2D3748"}}>
-            <CardHeader title="USDC Exchange" avatar={<Avatar alt="USDC" src={USDC} />} sx={{flexGrow: 1, flexShrink: 1, flexBasis: 'auto'}}/>
+            <CardHeader title="USDC Exchange" avatar={<Avatar alt="USDC" src={USDC} />} 
+            sx={{flexGrow: 1, 
+            flexShrink: 1, 
+            flexBasis: 'auto'
+            }}/>
             <Grid container spacing={0} mt={0} display={"flex"}>
-              <Grid item xs={6} sm={6} sx={{ flexBasis: '50%', flexGrow: 0, maxWidth: '50%', m: 0, flexDirection: 'row', justifyContent: 'center'}}>
+              <Grid item xs={6} sm={6} sx={{ flexBasis: '50%', 
+              flexGrow: 0, 
+              maxWidth: '50%', 
+              m: 0, 
+              flexDirection: 'row', 
+              justifyContent: 'center'
+              }}>
                 <Item><Typography variant='h4'>Balance:</Typography></Item>
               </Grid>
               <Grid item xs={6} sm={6} sx={{ flexBasis: '50%', flexGrow: 0, maxWidth: '50%', flexDirection: 'row', justifyContent: 'center', m: 0}}>
@@ -109,8 +119,25 @@ export default function Login() {
               <Grid item xs={12} sx={{ boxSizing: 'border-box', m: 0, flexDirection: 'row', flexBasis: '100%', flexGrow: 0, maxWidth: '100%', justifyContent: 'center'}}>
                 <Box sx={{ width: '80%', mt: '16px', mr: 'auto', mb: '16px', ml: 'auto'}}>
                 <Item>
-                  <FormControl sx={{ display: 'inline-flex', position: 'relative', minWidth: 0, padding: 0, margin: 0, border: 0, verticalAlign: 'top', width: '100%', flexDirection: 'column'}}>
-                    <InputLabel htmlFor="my-input" sx={{mt: 2, zIndex: 1, position: 'absolute', fontWeight: 500, whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}>Amount</InputLabel>
+                  <FormControl sx={{ display: 'inline-flex', 
+                  position: 'relative', 
+                  minWidth: 0, 
+                  padding: 0, 
+                  margin: 0, 
+                  border: 0, 
+                  verticalAlign: 'top', 
+                  width: '100%', 
+                  flexDirection: 'column'
+                  }}>
+                    <InputLabel htmlFor="my-input" sx={{mt: 2, 
+                      zIndex: 1, 
+                      position: 'absolute', 
+                      fontWeight: 500, 
+                      whiteSpace: 'nowrap', 
+                      textOverflow: 'ellipsis'
+                      }}>
+                        Amount
+                      </InputLabel>
                     <FilledInput 
                     id="my-input" 
                     aria-describedby="my-helper-text"

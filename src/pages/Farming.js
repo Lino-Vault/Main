@@ -19,7 +19,7 @@ const SORT_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-export default function Blog() {
+export default function Farming() {
   return (
     <Page title="Yield Farming | Lino Vault">
       <Container>

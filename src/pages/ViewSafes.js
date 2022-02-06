@@ -15,7 +15,7 @@ import PRODUCTS from '../_mocks_/products';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceShop() {
+export default function ViewSafes() {
   const [openFilter, setOpenFilter] = useState(false);
 
   const formik = useFormik({

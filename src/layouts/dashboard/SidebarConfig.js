@@ -13,27 +13,27 @@ const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 
 const sidebarConfig = [
   {
-    title: 'dashboard',
+    title: 'Dashboard',
     path: '/dashboard/app',
     icon: getIcon(pieChart2Fill)
   },
   {
-    title: 'your safes',
+    title: 'Your Safes',
     path: 'safes',
     icon: getIcon(safeFill)
   },
   {
-    title: 'view open safes',
+    title: 'View Open Safes',
     path: 'view',
     icon: getIcon(eyeFill)
   },
   {
-    title: 'yield farming',
+    title: 'Yield Farming',
     path: 'farming',
     icon: getIcon(plant)
   },
   {
-    title: 'USDC exchange',
+    title: 'USDC Exchange',
     path: 'exchange',
     icon: getIcon(exchangeFill)
   },
@@ -43,7 +43,7 @@ const sidebarConfig = [
     icon: getIcon(voteFill)
   },
   {
-    title: 'documentation',
+    title: 'Documentation',
     path: '/404',
     icon: getIcon(textFilefill)
   }
