@@ -19,12 +19,13 @@ export default function Router() {
       path: '/',
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app/" replace /> },
+        { element: <Navigate to="/dashboard/app" replace /> },
         { path: '/dashboard/app', element: <DashboardApp /> },
-        { path: 'user', element: <User /> },
-        { path: 'products', element: <Products /> },
-        { path: 'blog', element: <Blog /> },
-        { path: 'login', element: <Login/>}
+        { path: 'safes', element: <User /> },
+        { path: 'view', element: <Products /> },
+        { path: 'farming', element: <Blog /> },
+        { path: 'exchange', element: <Login/>},
+        { path: '/', element: <Navigate to="/dashboard/app" /> },
       ]
     },
     {
@@ -33,7 +34,7 @@ export default function Router() {
       children: [
         { path: 'register', element: <Register /> },
         { path: '404', element: <NotFound /> },
-        { path: '/', element: <Navigate to="/dashboard/app" /> }, //adjusted for /dashboard to redirect to /dashboard/app
+        { path: '/', element: <Navigate to="/dashboard/app" /> },
         { path: '*', element: <Navigate to="/404" /> }
       ]
     },

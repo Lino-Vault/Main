@@ -94,34 +94,27 @@ export default function WalletPopover() {
   };
 
   async function triggerWeb3() {
-    const web3 = createWeb3();
+    const web3 = await createWeb3();
     setWeb3(web3);
+    
     // eslint-disable-next-line no-undef
     const done = BigInt(0);
     setL2Balance(done);
 
-    const accounts = [window.ethereum.selectedAddress]; //change to accounts when done
-    setAccounts(accounts);
+    const _accounts = [window.ethereum.selectedAddress];
+    setAccounts(_accounts);
+
   }
   
   useEffect(() => {
-    if (web3) {
+    if (l2Balance) {
         return;
     }
 
     (async () => {
-        const _web3 = await createWeb3();
-        setWeb3(_web3);
-                    // eslint-disable-next-line no-undef
-      const done = BigInt(0);
-      setL2Balance(done);
-        const _accounts = [window.ethereum.selectedAddress];
-        setAccounts(_accounts);
-        console.log({ _accounts });
-
-        if (_accounts && _accounts[0]) {
+        if (accounts && accounts[0]) {
             // eslint-disable-next-line no-undef
-            const _l2Balance = BigInt(await _web3.eth.getBalance(_accounts[0]));
+            const _l2Balance = BigInt(await web3.eth.getBalance(accounts[0]));
             setL2Balance(_l2Balance);
         }
     })();

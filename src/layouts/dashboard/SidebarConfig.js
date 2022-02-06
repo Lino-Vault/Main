@@ -19,22 +19,22 @@ const sidebarConfig = [
   },
   {
     title: 'your safes',
-    path: '/user',
+    path: 'safes',
     icon: getIcon(safeFill)
   },
   {
     title: 'view open safes',
-    path: '/products',
+    path: 'view',
     icon: getIcon(eyeFill)
   },
   {
     title: 'yield farming',
-    path: '/blog',
+    path: 'farming',
     icon: getIcon(plant)
   },
   {
     title: 'USDC exchange',
-    path: '/login',
+    path: 'exchange',
     icon: getIcon(exchangeFill)
   },
   {
