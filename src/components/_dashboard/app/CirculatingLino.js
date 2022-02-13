@@ -6,7 +6,7 @@ import { Card, Typography } from '@mui/material';
 // utils
 import { fShortenNumber } from '../../../utils/formatNumber';
 
-import Logo from '../../../logo.svg';
+import Logo from '../../../lino_icon.png';
 
 // ----------------------------------------------------------------------
 

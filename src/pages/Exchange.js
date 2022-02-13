@@ -28,7 +28,7 @@ import Page from '../components/Page';
 import USDC from '../usdc.svg';
 import Chevron from '@iconify/icons-fluent/chevron-double-down-16-filled'
 import { Icon } from '@iconify/react';
-import Lino from '../logo.svg';
+import Lino from '../lino_icon.png';
 
 // ----------------------------------------------------------------------
 
@@ -186,7 +186,15 @@ export default function Exchange() {
                       position: 'absolute'}}>
                       Amount
                       </InputLabel>
-                      <FilledInput color='primary' disabled fullWidth startAdornment={<Avatar alt="Lino" src={Lino} sx={{height: 20, width: 20, mt: 2, mr: 1}}/>}/>
+                      <FilledInput color='primary' disabled fullWidth startAdornment={
+                      <Avatar alt="Lino" 
+                      src={Lino} 
+                      sx={{height: 20, 
+                      width: 20, 
+                      mt: 2, 
+                      mr: 1}}/>
+                      }
+                      />
                     </FormControl>
                     </Item>
                   </Box>

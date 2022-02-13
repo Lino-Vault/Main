@@ -12,7 +12,7 @@ import { MHidden } from '../../components/@material-extend';
 //
 import sidebarConfig from './SidebarConfig';
 import account from '../../_mocks_/account';
-import Logo from '../../logo.svg';
+import Logo from '../../full_lino_icon.png';
 
 // ----------------------------------------------------------------------
 
