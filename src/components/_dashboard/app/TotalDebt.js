@@ -43,7 +43,7 @@ export default function TotalDebt() {
     <RootStyle>
       <IconWrapperStyle>
         <Icon sx={{mt: '1px'}}>
-          <img src={DebtIcon} height={70} width={110}/>  
+          <img src={DebtIcon} height={60} width={110}/>  
         </Icon>
       </IconWrapperStyle>
       <Typography variant="h3">${fShortenNumber(TOTAL)}</Typography>

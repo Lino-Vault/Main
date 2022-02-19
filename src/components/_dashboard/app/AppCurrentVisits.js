@@ -2,11 +2,13 @@ import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
 // material
 import { useTheme, styled } from '@mui/material/styles';
-import { Card, CardHeader } from '@mui/material';
+import { Card, CardContent, CardHeader, Grid, Stack, Typography } from '@mui/material';
 // utils
 import { fNumber } from '../../../utils/formatNumber';
 //
 import { BaseOptionChart } from '../../charts';
+
+import CKB from '../../../ckb.png';
 
 // ----------------------------------------------------------------------
 
@@ -63,10 +65,27 @@ export default function AppCurrentVisits() {
 
   return (
     <Card>
-      <CardHeader title="Current Visits" />
-      <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
-      </ChartWrapperStyle>
+      <CardHeader title="CKB Vault" avatar={<img src={CKB} width={40} height={40} color="inherit"/>}/>
+      <CardContent>
+        <Grid container>
+          <Grid item xs={6}>
+            <Stack alignItems="center">
+              <Typography variant="h6">Collateral</Typography>
+              <Typography variant='body2' color="primary.main">
+                $11,234.23
+              </Typography>
+            </Stack>
+          </Grid>
+          <Grid item xs={6}>
+            <Stack alignItems="center">
+              <Typography variant='h6'>Debt</Typography>
+              <Typography variant='body2' color="error.light">
+                $3,243.32
+              </Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </CardContent>
     </Card>
   );
 }

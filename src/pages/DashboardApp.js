@@ -11,7 +11,7 @@ import {
   Welcome,
   AppOrderTimeline,
   AppCurrentVisits,
-  AppWebsiteVisits,
+  LinoVaultStatistics,
   AppTrafficBySite,
   AppCurrentSubject,
   AppConversionRates
@@ -39,8 +39,8 @@ export default function DashboardApp() {
             <CirculatingLino />
           </Grid>
 
-          <Grid item xs={12} md={6} lg={8}>
-            <AppWebsiteVisits />
+          <Grid item xs={12} md={6} lg={4}>
+            <LinoVaultStatistics />
           </Grid>
 
           <Grid item xs={12} md={6} lg={4}>
