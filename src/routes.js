@@ -4,7 +4,6 @@ import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 //
 import Exchange from './pages/Exchange';
-import Register from './pages/Register';
 import DashboardApp from './pages/DashboardApp';
 import ViewSafes from './pages/ViewSafes';
 import Farming from './pages/Farming';
@@ -32,7 +31,6 @@ export default function Router() {
       path: '/',
       element: <LogoOnlyLayout />,
       children: [
-        { path: 'register', element: <Register /> },
         { path: '404', element: <NotFound /> },
         { path: '/', element: <Navigate to="/dashboard/app" /> },
         { path: '*', element: <Navigate to="/404" /> }

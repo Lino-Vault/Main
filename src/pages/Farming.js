@@ -1,25 +1,13 @@
 import { Icon } from '@iconify/react';
-import plusFill from '@iconify/icons-eva/plus-fill';
-import { Link as RouterLink } from 'react-router-dom';
 // material
-import { Grid, Button, Container, Stack, Typography, CardHeader, Card, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { Grid, Container, Stack, Typography, CardHeader, Card, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { Image } from '@mui/icons-material';
 // components
 import Page from '../components/Page';
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../components/_dashboard/blog';
-//
-import POSTS from '../_mocks_/blog';
+
 import { Box } from '@mui/system';
 import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
 import USDCLino from '../usdcLinoFarm.png';
-
-// ----------------------------------------------------------------------
-
-const SORT_OPTIONS = [
-  { value: 'latest', label: 'Latest' },
-  { value: 'popular', label: 'Popular' },
-  { value: 'oldest', label: 'Oldest' }
-];
 
 // ----------------------------------------------------------------------
 
