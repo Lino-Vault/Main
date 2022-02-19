@@ -14,7 +14,7 @@ export default function ViewSafes() {
           subheader={'All safes where users have borrowed larger than 80% of the max LTV are displayed'}
           />
           <Typography variant="h4" color="inherit" sx={{ mt: 5, mb: 5, textAlign: 'center' }}>
-            No vaults close to liquidation.
+            No safes close to liquidation.
           </Typography>
         </Card>
       </Container>
