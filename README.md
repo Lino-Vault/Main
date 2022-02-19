@@ -1,6 +1,6 @@
 # Lino Vault
 <p align="center">
-<img src="https://i.ibb.co/Hzng07B/LINOB-Banner.jpg" alt="LINO">
+<img src="https://i.ibb.co/Phz01Hv/Lino-Vault.png" alt="LINO">
 </p>
 
 Lino Vault is a decentralized application on the Nervos Layer 2 chain. LinoB Vault offers users loans using the USD 1:1 pegged stablecoin LINOB utilizing their CKB as collateral.
