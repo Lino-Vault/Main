@@ -18,7 +18,8 @@ import {
   Container,
   Typography,
   TableContainer,
-  TablePagination
+  TablePagination,
+  CardHeader
 } from '@mui/material';
 // components
 import Page from '../components/Page';
@@ -133,18 +134,22 @@ export default function Safes() {
 
   return (
     <Page title="Safes | Lino Vault">
-      <Container>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4" gutterBottom sx={{color: "white"}}>
-            Your Safes
+      <Container maxWidth="md">
+        <Card sx={{mb: 3, pb: 3, position: 'relative'}}>
+          <CardHeader title={'Your Safes'} subheader={'Manage your borrowing here'}
+          action={<Button sx={{mt: 2, mb: 2, textAlign: 'center'}} variant="contained" size='large'
+          color='primary'>
+            <Typography>
+              Create Safe
+            </Typography>
+          </Button>}/>
+        </Card>
+        <Stack alignItems="center">
+          <Typography variant="h2" color="white" sx={{mt: 2, mb: 2, textAlign: 'center'}}>
+            No safes created yet.
           </Typography>
-          <Button
-            variant="contained"
-            component={RouterLink}
-            to="#"
-            startIcon={<Icon icon={plusFill} />}
-          >
-            New User
+          <Button sx={{mt: 2, mb: 2, textAlign: 'center'}} variant="contained" size='large' color='primary'>
+            <Typography>Create a safe to start!</Typography>
           </Button>
         </Stack>
       </Container>

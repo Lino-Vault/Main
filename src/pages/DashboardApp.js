@@ -3,18 +3,13 @@ import { Box, Grid, Container } from '@mui/material';
 // components
 import Page from '../components/Page';
 import {
-  AppTasks,
   TotalCollateral,
   CirculatingLino,
   TotalDebt,
-  AppNewsUpdate,
   Welcome,
-  AppOrderTimeline,
-  AppCurrentVisits,
+  CKBVault,
   LinoVaultStatistics,
-  AppTrafficBySite,
-  AppCurrentSubject,
-  AppConversionRates
+  YieldFarm
 } from '../components/_dashboard/app';
 
 // ----------------------------------------------------------------------
@@ -44,31 +39,11 @@ export default function DashboardApp() {
           </Grid>
 
           <Grid item xs={12} md={6} lg={4}>
-            <AppCurrentVisits />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AppConversionRates />
+            <CKBVault />
           </Grid>
 
           <Grid item xs={12} md={6} lg={4}>
-            <AppCurrentSubject />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AppNewsUpdate />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AppOrderTimeline />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AppTrafficBySite />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AppTasks />
+            <YieldFarm />
           </Grid>
         </Grid>
       </Container>

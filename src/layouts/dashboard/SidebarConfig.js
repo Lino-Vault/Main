@@ -44,7 +44,7 @@ const sidebarConfig = [
   },
   {
     title: 'Documentation',
-    path: '/404',
+    path: 'https://linob.gitbook.io/linob-vault/',
     icon: getIcon(textFilefill)
   }
 ];

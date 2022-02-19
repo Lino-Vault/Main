@@ -19,7 +19,7 @@ export default function LinoVaultStatistics() {
       <CardContent>
         <Grid container spacing={1}>
           <Grid item xs={8}>
-            <Typography variant='subtitle1'>
+            <Typography variant='subtitle1' sx={{ color: 'text.secondary' }}>
               Marketcap
             </Typography>
           </Grid>
@@ -29,7 +29,7 @@ export default function LinoVaultStatistics() {
             </Typography>
           </Grid>
           <Grid item xs={8}>
-            <Typography variant='subtitle1'>
+            <Typography variant='subtitle1' sx={{ color: 'text.secondary' }}>
               TVL
             </Typography>
           </Grid>
@@ -39,7 +39,7 @@ export default function LinoVaultStatistics() {
             </Typography>
           </Grid>
           <Grid item xs={8}>
-            <Typography variant='subtitle1'>
+            <Typography variant='subtitle1' sx={{ color: 'text.secondary' }}>
               Totel Revenue
             </Typography>
           </Grid>
@@ -49,8 +49,8 @@ export default function LinoVaultStatistics() {
             </Typography>
           </Grid>
           <Grid item xs={8}>
-            <Typography variant='subtitle1'>
-              Ciculating Governance Token Supply
+            <Typography variant='subtitle1' sx={{ color: 'text.secondary' }}>
+              Circulating Token Supply
             </Typography>
           </Grid>
           <Grid item xs={4} display="flex" justifyContent="flex-end">

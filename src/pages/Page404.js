@@ -21,12 +21,12 @@ const RootStyle = styled(Page)(({ theme }) => ({
 
 export default function Page404() {
   return (
-    <RootStyle title="404 Page Not Found | Minimal-UI">
+    <RootStyle title="404 Page Not Found | Lino Vault">
       <Container>
         <MotionContainer initial="initial" open>
           <Box sx={{ maxWidth: 480, margin: 'auto', textAlign: 'center' }}>
             <motion.div variants={varBounceIn}>
-              <Typography variant="h3" paragraph>
+              <Typography variant="h3" color="primary" paragraph>
                 Sorry, page not found!
               </Typography>
             </motion.div>
