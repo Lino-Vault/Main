@@ -1,30 +1,21 @@
-import { ToastContainer} from 'react-toastify';
-import Layout from './Components/Layout.js';
-import ConnectButton from "./Components/connectButton.js"
-import { ChakraProvider } from "@chakra-ui/react";
-import Navbar from './Components/Navbar.js';
-import Deposit from './Components/Deposit.js';
-import VaultInfo from './Components/VaultInfo.js';
-import Title from './Components/Title.js'
-import VaultTotals from './Components/VaultTotals.js'
-import './App.css';
-import 'react-toastify/dist/ReactToastify.css';
+// routes
+import Router from './routes';
+// theme
+import ThemeConfig from './theme';
+import GlobalStyles from './theme/globalStyles';
+// components
+import ScrollToTop from './components/ScrollToTop';
+import { BaseOptionChartStyle } from './components/charts/BaseOptionChart';
+
+// ----------------------------------------------------------------------
 
 export default function App() {
   return (
-      <div>
-        <ChakraProvider>
-          <Layout>
-            <Navbar>
-              <Title/>
-              <ConnectButton/>
-            </Navbar>
-            <Deposit/>
-            <VaultInfo/>
-            <VaultTotals/>
-          </Layout>
-        </ChakraProvider>
-      <ToastContainer />
-      </div>
+    <ThemeConfig>
+      <ScrollToTop />
+      <GlobalStyles />
+      <BaseOptionChartStyle />
+      <Router />
+    </ThemeConfig>
   );
 }
