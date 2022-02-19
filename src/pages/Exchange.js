@@ -20,8 +20,6 @@ import { Card,
   Grid, 
   Paper
 } from '@mui/material';
-// layouts
-import AuthLayout from '../layouts/AuthLayout';
 // components
 import Page from '../components/Page';
 
