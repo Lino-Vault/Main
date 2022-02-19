@@ -1,4 +1,4 @@
-# LinoB Vault
+# Lino Vault
 <p align="center">
 <img src="https://i.ibb.co/Hzng07B/LINOB-Banner.jpg" alt="Linob">
 </p>
