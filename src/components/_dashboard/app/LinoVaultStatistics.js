@@ -35,7 +35,7 @@ export default function LinoVaultStatistics() {
           </Grid>
           <Grid item xs={4} display="flex" justifyContent="flex-end">
             <Typography variant='subtitle1'>
-              $1,122,343.23
+              $1,129,343.23
             </Typography>
           </Grid>
           <Grid item xs={8}>
@@ -45,7 +45,7 @@ export default function LinoVaultStatistics() {
           </Grid>
           <Grid item xs={4} display="flex" justifyContent="flex-end">
             <Typography variant='subtitle1'>
-              $93,452.34
+              $93,451.74
             </Typography>
           </Grid>
           <Grid item xs={8}>
