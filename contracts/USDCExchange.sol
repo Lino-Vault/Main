@@ -60,13 +60,13 @@ contract USDCExchange is Initializable, ReentrancyGuardUpgradeable, OwnableUpgra
 
 // Set rate for lino to USDC
 
-    function setAVAIRate(uint256 _rate) public onlyOwner {
+    function setLinoRate(uint256 _rate) public onlyOwner {
         require(_rate <= 10000 && _rate >= 9900, 'Must be 0-1% fee');
         linoRate = _rate;
         emit ChangeLINORate(_rate);
     }
 
-// Set the rate that AVAI is traded for USDC
+// Set the rate that Lino is traded for USDC
 
     function setHourlyLimit(uint256 _limit) public onlyOwner {
         hourlyLimit = _limit;
