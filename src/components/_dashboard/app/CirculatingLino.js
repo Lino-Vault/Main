@@ -1,6 +1,4 @@
 import { Icon } from '@iconify/react';
-import bugFilled from '@iconify/icons-ant-design/bug-filled';
-// material
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 // utils
@@ -43,7 +41,7 @@ export default function CirculatingLino() {
     <RootStyle>
       <IconWrapperStyle>
         <Icon>
-          <img src={Logo} height={45} width={45}/>  
+          <img src={Logo} alt={'LINO Logo'} height={45} width={45}/>  
         </Icon>
       </IconWrapperStyle>
       <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>

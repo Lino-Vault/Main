@@ -1,16 +1,11 @@
 
 import { Card, CardContent, CardHeader, Grid, Stack, Typography } from '@mui/material';
-// utils
-import { fNumber } from '../../../utils/formatNumber';
-
 import CKB from '../../../ckb.png';
 
 // ----------------------------------------------------------------------
 
 
 // ----------------------------------------------------------------------
-
-const CHART_DATA = [4344, 5435, 1443, 4443];
 
 export default function CKBVault() {
 

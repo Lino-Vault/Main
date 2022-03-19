@@ -48,10 +48,6 @@ export default function WalletPopover() {
       onClose(selectedValue);
     };
   
-    const handleListItemClick = (value) => {
-      onClose(value);
-    };
-  
     return (
       <Dialog onClose={handleClose} open={open}>
         <DialogTitle textAlign='center' bgcolor='#2D3748'>Connect Wallet</DialogTitle>
@@ -61,7 +57,7 @@ export default function WalletPopover() {
               <ListItemAvatar>
                 <Avatar sx={{ bgcolor: '#1A202C'}}>
                   <Icon>
-                    <img src={MetaMask} height={45} width={45}/>  
+                    <img src={MetaMask} alt={'MetaMask Logo'} height={45} width={45}/>  
                   </Icon>
                 </Avatar>
               </ListItemAvatar>
@@ -72,7 +68,7 @@ export default function WalletPopover() {
             <ListItemAvatar>
               <Avatar>
                 <Icon>
-                    <img src={WalletConnect} height={45} width={45}/>  
+                    <img src={WalletConnect} alt={'WalletConnect Logo'} height={45} width={45}/>  
                 </Icon>
               </Avatar>
             </ListItemAvatar>

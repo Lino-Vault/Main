@@ -51,7 +51,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       <Box sx={{ px: 2.5, py: 3 }}>
         <Box component={RouterLink} to="/" sx={{ display: 'inline-flex' }}>
         <Icon>
-          <img src={Logo} height={70} width={70}/>  
+          <img src={Logo} alt={'LINO Logo'} height={70} width={70}/>  
         </Icon>
         </Box>
       </Box>
