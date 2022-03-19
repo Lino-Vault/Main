@@ -6,7 +6,6 @@ import exchangeFill from '@iconify/icons-ri/exchange-fill';
 import textFilefill from '@iconify/icons-eva/file-add-fill'
 import voteFill from '@iconify/icons-fluent/vote-24-filled';
 import safeFill from '@iconify/icons-bi/safe-fill';
-
 // ----------------------------------------------------------------------
 
 const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
@@ -44,7 +43,7 @@ const sidebarConfig = [
   },
   {
     title: 'Documentation',
-    path: 'https://linob.gitbook.io/linob-vault/',
+    path: 'doc',
     icon: getIcon(textFilefill)
   }
 ];

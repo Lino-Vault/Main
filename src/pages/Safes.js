@@ -5,20 +5,22 @@ import {
   Button,
   Container,
   Typography,
-  CardHeader
+  CardHeader,
 } from '@mui/material';
+
+import { useNavigate } from 'react-router-dom';
 // components
 import Page from '../components/Page';
 
-
 export default function Safes() {
+  const navigate = useNavigate();
 
   return (
     <Page title="Safes | Lino Vault">
       <Container maxWidth="md">
         <Card sx={{mb: 3, pb: 3, position: 'relative'}}>
           <CardHeader title={'Your Safes'} subheader={'Manage your borrowing here'}
-          action={<Button sx={{mt: 2, mb: 2, textAlign: 'center'}} variant="contained" size='large'
+          action={<Button onClick={() => navigate('/safes/create')} sx={{mt: 2, mb: 2, textAlign: 'center'}} variant="contained" size='large'
           color='primary'>
             <Typography>
               Create Safe
@@ -29,7 +31,7 @@ export default function Safes() {
           <Typography variant="h2" color="white" sx={{mt: 2, mb: 2, textAlign: 'center'}}>
             No safes created yet.
           </Typography>
-          <Button sx={{mt: 2, mb: 2, textAlign: 'center'}} variant="contained" size='large' color='primary'>
+          <Button onClick={() => navigate('/safes/create')} sx={{mt: 2, mb: 2, textAlign: 'center'}} variant="contained" size='large' color='primary'>
             <Typography>Create a safe to start!</Typography>
           </Button>
         </Stack>

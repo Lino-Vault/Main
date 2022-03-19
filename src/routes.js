@@ -9,6 +9,7 @@ import ViewSafes from './pages/ViewSafes';
 import Farming from './pages/Farming';
 import Safes from './pages/Safes';
 import NotFound from './pages/Page404';
+import CreateSafes from './pages/CreateSafe';
 
 // ----------------------------------------------------------------------
 
@@ -24,6 +25,8 @@ export default function Router() {
         { path: 'view', element: <ViewSafes /> },
         { path: 'farming', element: <Farming /> },
         { path: 'exchange', element: <Exchange/>},
+        { path: '/safes/create', element: <CreateSafes />},
+        { path: 'doc'},
         { path: '/', element: <Navigate to="/dashboard/app" /> },
       ]
     },
