@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import windowsFilled from '@iconify/icons-ant-design/windows-filled';
+
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
@@ -43,7 +43,7 @@ export default function TotalDebt() {
     <RootStyle>
       <IconWrapperStyle>
         <Icon sx={{mt: '1px'}}>
-          <img src={DebtIcon} height={60} width={110}/>  
+          <img src={DebtIcon} alt={'Debt Icon'} height={60} width={110}/>  
         </Icon>
       </IconWrapperStyle>
       <Typography variant="h3">${fShortenNumber(TOTAL)}</Typography>

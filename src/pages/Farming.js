@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 // material
-import { Grid, Container, Stack, Typography, CardHeader, Card, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { Grid, Container, Stack, Typography, CardHeader, Card, Accordion, AccordionSummary } from '@mui/material';
 import { Image } from '@mui/icons-material';
 // components
 import Page from '../components/Page';
@@ -55,7 +55,7 @@ export default function Farming() {
               <Grid container alignItems="center" spacing={1}>
                 <Grid item xs={6} md={3} display="flex" justifyContent={'flex-start'}>
                   <Stack alignItems="center" direction="row" spacing={1}>
-                    <img src={USDCLino} width={60} height={44} color="grey.700"/>
+                    <img src={USDCLino} alt={'USDC Logo'} width={60} height={44} color="grey.700"/>
                     <Stack alignItems={'flex-start'}>
                       <Typography sx={{color: 'grey.800'}} variant="h6">
                         USDC-LINO

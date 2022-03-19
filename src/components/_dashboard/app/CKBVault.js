@@ -1,7 +1,4 @@
-import { merge } from 'lodash';
-import ReactApexChart from 'react-apexcharts';
-// material
-import { useTheme, styled } from '@mui/material/styles';
+
 import { Card, CardContent, CardHeader, Grid, Stack, Typography } from '@mui/material';
 // utils
 import { fNumber } from '../../../utils/formatNumber';
@@ -19,7 +16,7 @@ export default function CKBVault() {
 
   return (
     <Card>
-      <CardHeader title="CKB Vault" avatar={<img src={CKB} width={40} height={40} color="inherit"/>}/>
+      <CardHeader title="CKB Vault" avatar={<img src={CKB} alt={'CKB Logo'} width={40} height={40} color="inherit"/>}/>
       <CardContent>
         <Grid container>
           <Grid item xs={6}>

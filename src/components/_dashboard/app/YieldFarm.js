@@ -1,19 +1,9 @@
-import { merge } from 'lodash';
-import ReactApexChart from 'react-apexcharts';
-// material
-import { Card, CardContent, CardHeader, Grid, Stack, Typography, Divider } from '@mui/material';
-// utils
-import { fNumber } from '../../../utils/formatNumber';
-//
+import { Card, CardHeader, Grid, Typography, Divider } from '@mui/material';
 
-import { BaseOptionChart } from '../../charts';
 
 import USDCLino from '../../../usdcLinoFarm.png';
-import { Image } from '@mui/icons-material';
 
 // ----------------------------------------------------------------------
-
-const CHART_DATA = [{ data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380] }];
 
 export default function YieldFarm() {
 
@@ -22,7 +12,7 @@ export default function YieldFarm() {
       <CardHeader title="Yield Farm" subheader="Earn Governance token and participate in the DAO" />
       <Grid container sx={{p: 3, pb: 2.5}}>
         <Grid item xs={12} display="flex" justifyContent="center">
-          <img src={USDCLino} width={100} height={70} color="inherit"/>
+          <img src={USDCLino} alt={'2 Logos'} width={100} height={70} color="inherit"/>
         </Grid>
         <Grid item xs={12} display="flex" justifyContent="center" mt={1}>
           <Typography variant="h5">USDC - LINO</Typography>
