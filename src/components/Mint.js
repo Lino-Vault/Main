@@ -90,7 +90,6 @@ export const Mint = () => {
               startAdornment={<Avatar alt="USDC" src={USDC} sx={{height: 20, width: 20, mt: 2, mr: 1}}/>}
               endAdornment={<Button>Max</Button>}
               />
-              <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
             </FormControl>
           </Item>
           </Box>
