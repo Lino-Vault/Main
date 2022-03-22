@@ -4,7 +4,6 @@ import {
     Typography,
     Stack,
     Button,
-    Tooltip,
   } from '@mui/material';
 
   import Logo from '../ckb.png';
