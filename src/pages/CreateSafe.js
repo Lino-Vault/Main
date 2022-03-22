@@ -3,18 +3,29 @@ import {
     Card,
     Container,
     CardHeader,
-    IconButton
+    IconButton,
+    Grid,
+    Backdrop,
+    Typography
   } from '@mui/material';
   import { useNavigate } from 'react-router-dom';
+  import { useState } from 'react';
 
   
   import { Icon } from '@iconify/react';
   import backArrowIos from '@iconify/icons-eva/arrow-ios-back-outline';
   // components
   import Page from '../components/Page';
+  import SafeBanner from './SafeBanner';
   
   export default function Safes() {
+
+      const [handlingTransaction, setHandlingTransaction] = useState(false);
       const navigate = useNavigate();
+
+      const handleTransaction = (state) => {
+        setHandlingTransaction(state);
+      }
 
     return (
       <Page title="Safes | Lino Vault">
@@ -31,6 +42,18 @@ import {
             }
             />
           </Card>
+          <Grid container>
+            <Backdrop sx={{ position: 'absolute', zIndex: 99}}
+            open={handlingTransaction}
+            >
+              <Typography>
+                Loading!
+              </Typography>
+            </Backdrop>
+            <Grid item xs={12}>
+              <SafeBanner/>
+            </Grid>
+          </Grid>
         </Container>
       </Page>
     );
