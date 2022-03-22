@@ -13,7 +13,6 @@ import {
   export default function SafeBanner() {
       return(
       <div>
-          <Tooltip>
           <Card
           sx={{
               p: 2,
@@ -75,7 +74,6 @@ import {
                   </Grid>
               </Grid>
           </Card>
-          </Tooltip>
       </div>
       );
   };
