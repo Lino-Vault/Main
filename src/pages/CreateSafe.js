@@ -9,8 +9,6 @@ import {
     Typography
   } from '@mui/material';
   import { useNavigate } from 'react-router-dom';
-  import { useState } from 'react';
-
   
   import { Icon } from '@iconify/react';
   import backArrowIos from '@iconify/icons-eva/arrow-ios-back-outline';
@@ -20,12 +18,8 @@ import {
   
   export default function Safes() {
 
-      const [handlingTransaction, setHandlingTransaction] = useState(false);
       const navigate = useNavigate();
 
-      const handleTransaction = (state) => {
-        setHandlingTransaction(state);
-      }
 
     return (
       <Page title="Safes | Lino Vault">
@@ -44,7 +38,6 @@ import {
           </Card>
           <Grid container>
             <Backdrop sx={{ position: 'absolute', zIndex: 99}}
-            open={handlingTransaction}
             >
               <Typography>
                 Loading!
