@@ -1,21 +1,26 @@
-import * as React from 'react';
 import { Icon } from '@iconify/react';
 import PropTypes from 'prop-types';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Dialog from '@mui/material/Dialog';
 import MetaMask from '../../metamask.svg';
 import WalletConnect from '../../walletconnect.svg';
 import { useEffect, useState} from 'react';
+import * as React from 'react';
 import { createWeb3 } from '../../utils/createWeb3';
-import { Card } from '@mui/material';
-import { Typography } from '@mui/material';
+import { 
+  Card, 
+  Typography, 
+  Dialog, 
+  DialogTitle, 
+  ListItemText, 
+  ListItemAvatar, 
+  ListItem, 
+  List, 
+  Avatar, 
+  Button,
+  styled,
+  Stack
+} from '@mui/material';
 import { AddressTranslator } from 'nervos-godwoken-integration';
+
 
 
 export default function WalletPopover() {
@@ -40,6 +45,16 @@ export default function WalletPopover() {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  const CoinTheme = styled(Button)(({theme}) => ({
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(1, 1.5),
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.grey[500_80],
+    borderRadius: theme.shape.borderRadiusSm,
+    maxWidth: '175px',
+}));
 
   function SimpleDialog(props) {
     const { onClose, selectedValue, open } = props;
@@ -118,9 +133,22 @@ export default function WalletPopover() {
   
     return accounts ? (
       <>
-        <Card sx={{ backgroundColor: "#2D3748", p: 0.8, textAlign: "center"}} size="small">
+      <CoinTheme>
+      <Stack direction="row" spacing={1} alignItems="center">
+        <Typography
+          variant="button"
+          sx={{
+            color: (theme) =>
+              theme.palette.mode === 'light' ? 'grey.800' : 'grey.200',
+          }}
+          textAlign="center"
+        >
           {(l2Balance / 10n ** 8n).toString() } CKB
-          <Button sx={{backgroundColor: '#1A202C', ml: 1}} size="small">
+        </Typography>
+      </Stack>
+    </CoinTheme>
+        <Card sx={{ p: 0.8, textAlign: "center"}} size="small">
+          <Button sx={{backgroundColor: '#1A202C'}} size="small">
             <Typography>
               {polyjuiceAddress &&
               `${polyjuiceAddress.slice(0, 6)}...${polyjuiceAddress.slice(

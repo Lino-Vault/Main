@@ -108,7 +108,7 @@ export default function Farming() {
                 <Grid item xs={4} md={2} display="flex" justifyContent="center">
                   <Stack alignItems="center">
                     <Typography sx={{color: 'grey.700'}} variant="h6">
-                      6%
+                      91%
                     </Typography>
                     <Typography sx={{color: 'grey.700'}} variant="caption">
                       APR
