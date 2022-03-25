@@ -15,7 +15,7 @@ export default function LinoVaultStatistics() {
   return (
     <Card>
       <CardHeader title="Statistics" subheader="About the Lino Vault" />
-      <CardHeader avatar={<Avatar alt="USDC" src={SKY} />} title={<Typography sx={{fontWeight: 600, lineHeight: 1.555}}>SKY Token</Typography>}/>
+      <CardHeader avatar={<Avatar alt="USDC" src={SKY} />} title={<Typography sx={{fontWeight: 600, lineHeight: 1.555}}>SKY</Typography>}/>
       <CardContent>
         <Grid container spacing={1}>
           <Grid item xs={8}>
