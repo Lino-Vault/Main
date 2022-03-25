@@ -350,18 +350,7 @@ contract CKBVault is
         emit DepositCollateral(safeID, amount);
     }
 
-  /**
-   * @dev Lets a vault owner borrow stablecoin against collateral
-   *
-   * Requirements:
-   * - Vault type must exist
-   * - Vault must exist
-   * - Must borrow greater than 0 stablecoin
-   * - Must be below the debt ceiling when borrowing
-   * - Must maintain minimum collateral percentage
-   *
-   * Emits BorrowToken event
-   */
+
    function borrowToken(uint256 safeID, uint256 amount)
    external
    payable
@@ -393,15 +382,6 @@ contract CKBVault is
     emit BorrowToken(safeID, amount);
    }
 
-/**
-   * @dev allows vault owner to withdraw the collateral
-   *
-   * Requirements:
-   * - Withdraw amount is less than or equal to current collateral
-   * - Collateral withdrawal amount does not put debt below minimum collateral
-   *
-   * Emits WithdrawCollateral event
-   */
    function withdrawCollateral(uint256 safeID, uint256 amount)
    external
    onlySafeOwner(safeID)
@@ -429,13 +409,6 @@ contract CKBVault is
     emit WithdrawCollateral(safeID, amount);
    }
 
-  /**
-   * @dev Pay back the stablecoin to reduce debt
-   *
-   * Requirements:
-   * - User must have enough balance to repay `amount`
-   * - Cannot pay back more than the required debt. `amount` must be less than debt.
-   */
    function paybackToken(uint256 safeID, uint256 amount)
    external
    onlySafeOwner(safeID)

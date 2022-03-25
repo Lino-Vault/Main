@@ -1,13 +1,13 @@
 import { Icon } from '@iconify/react';
 // material
 import { Grid, Container, Stack, Typography, CardHeader, Card, Accordion, AccordionSummary } from '@mui/material';
-import { Image } from '@mui/icons-material';
 // components
 import Page from '../components/Page';
 
 import { Box } from '@mui/system';
 import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
 import USDCLino from '../usdcLinoFarm.png';
+import SKY from '../sky_icon.png';
 
 // ----------------------------------------------------------------------
 
@@ -68,15 +68,16 @@ export default function Farming() {
                 </Grid>
                 <Grid item alignItems="center" xs={6} md={3} display="flex" justifyContent="center">
                   <Stack alignItems="center" direction="row" spacing={1}>
-                    <Image
-                      src={USDCLino}
+                    <img
+                      src={SKY}
+                      alt="Sky_icon"
                       width={44}
                       height={44}
                       color="grey.700"
                       />
                       <Stack alignItems="center">
                         <Typography sx={{ color: "grey.800"}} variant="h6">
-                          Governance Token
+                          SKY
                         </Typography>
                         <Typography sx={{ color: 'grey.700'}} variant="caption">
                           Reward

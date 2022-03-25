@@ -34,6 +34,7 @@ import {
                     <Icon icon={backArrowIos} width={30} height={30}/>
                 </IconButton>
             }
+            sx={{ mb: 3}}
             />
           </Card>
           <Grid container>
