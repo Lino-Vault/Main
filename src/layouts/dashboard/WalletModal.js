@@ -20,7 +20,7 @@ import {
   Stack
 } from '@mui/material';
 import { AddressTranslator } from 'nervos-godwoken-integration';
-
+import CKB from '../../ckb.png'
 
 
 export default function WalletPopover() {
@@ -135,6 +135,13 @@ export default function WalletPopover() {
       <>
       <CoinTheme>
       <Stack direction="row" spacing={1} alignItems="center">
+        <img
+        src={CKB}
+        alt='CKB Logo'
+        width={30}
+        height={30}
+        color="inherit"
+        />
         <Typography
           variant="button"
           sx={{
