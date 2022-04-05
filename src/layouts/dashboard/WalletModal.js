@@ -12,9 +12,28 @@ import Dialog from '@mui/material/Dialog';
 import MetaMask from '../../metamask.svg';
 import WalletConnect from '../../walletconnect.svg';
 import { useEffect, useState} from 'react';
+<<<<<<< Updated upstream
 import { createWeb3 } from '../../utils/createWeb3';
 import { Card } from '@mui/material';
 import { Typography } from '@mui/material';
+=======
+import * as React from 'react';
+import { createWeb3, polyjuiceWeb3 } from '../../utils/createWeb3';
+import { 
+  Card, 
+  Typography, 
+  Dialog, 
+  DialogTitle, 
+  ListItemText, 
+  ListItemAvatar, 
+  ListItem, 
+  List, 
+  Avatar, 
+  Button,
+  styled,
+  Stack
+} from '@mui/material';
+>>>>>>> Stashed changes
 import { AddressTranslator } from 'nervos-godwoken-integration';
 
 
@@ -95,7 +114,7 @@ export default function WalletPopover() {
 
   async function triggerWeb3() {
     const web3 = await createWeb3();
-    setWeb3(web3);
+    setWeb3(polyjuiceWeb3);
     
     // eslint-disable-next-line no-undef
     const done = BigInt(0);
@@ -112,6 +131,8 @@ export default function WalletPopover() {
     }
 
     (async () => {
+      const _web3 = await createWeb3();
+      setWeb3(_web3);
         if (accounts && accounts[0]) {
             // eslint-disable-next-line no-undef
             const _l2Balance = BigInt(await web3.eth.getBalance(accounts[0]));
