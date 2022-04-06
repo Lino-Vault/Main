@@ -113,7 +113,7 @@ export default function WalletPopover() {
     const done = BigInt(0);
     setL2Balance(done);
 
-    const _accounts = [window.ethereum.selectedAddress];
+    const _accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
     setAccounts(_accounts);
 
   }

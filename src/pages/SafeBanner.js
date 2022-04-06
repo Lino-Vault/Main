@@ -4,6 +4,7 @@ import {
     Typography,
     Stack,
     Button,
+    Tooltip
   } from '@mui/material';
 import { useEffect, useState} from 'react';
 import Logo from '../ckb.png';
@@ -48,6 +49,7 @@ import CKBVaultJSON from '../artifacts/contracts/CKBVault.sol/CKBVault';
 
       return(
       <div>
+          <Tooltip>
           <Card
           sx={{
               p: 2,
@@ -109,6 +111,7 @@ import CKBVaultJSON from '../artifacts/contracts/CKBVault.sol/CKBVault';
                   </Grid>
               </Grid>
           </Card>
+          </Tooltip>
       </div>
       );
   };
