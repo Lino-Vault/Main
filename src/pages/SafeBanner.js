@@ -8,8 +8,8 @@ import {
 import { useEffect, useState} from 'react';
 import Logo from '../ckb.png';
 import { createWeb3 } from '../utils/createWeb3';
-import CKBVaultJSON from '../artifacts/contracts/CKBVault.sol/CKBVault.json';
 
+import CKBVaultJSON from '../artifacts/contracts/CKBVault.sol/CKBVault';
 
   export default function SafeBanner() {
     const [accounts, setAccounts] = useState();
