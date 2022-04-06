@@ -60,7 +60,7 @@
         "@openzeppelin/contracts": "^4.4.2",
         "@openzeppelin/contracts-upgradeable": "^4.4.2",
         "@openzeppelin/hardhat-upgrades": "^1.13.0",
-        "@polyjuice-provider/web3": "0.0.1-rc11",
+        "@polyjuice-provider/web3": "^0.1.5",
         "@testing-library/jest-dom": "^5.11.4",
         "@testing-library/react": "^11.1.0",
         "@testing-library/user-event": "^12.1.10",
@@ -95,6 +95,10 @@
         "@babel/plugin-syntax-bigint": "^7.8.3",
         "@nomiclabs/hardhat-ethers": "^2.0.3",
         "@nomiclabs/hardhat-web3": "2.0.0",
+        "@types/jest": "^27.4.1",
+        "@types/react": "^17.0.43",
+        "@types/react-native": "^0.67.3",
+        "@types/react-test-renderer": "^17.0.1",
         "babel-loader": "8.1.0",
         "babel-plugin-named-asset-import": "^0.3.7",
         "chai": "^4.3.4",
@@ -111,7 +115,8 @@
         "ethlint": "1.2.5",
         "hardhat": "^2.6.4",
         "prettier": "^2.4.1",
-        "react-app-rewired": "^2.1.8"
+        "react-app-rewired": "^2.1.8",
+        "typescript": "^4.6.3"
     },
     "engines": {
         "node": ">= 14"

@@ -4,7 +4,7 @@ import MetaMask from '../../metamask.svg';
 import WalletConnect from '../../walletconnect.svg';
 import { useEffect, useState} from 'react';
 import * as React from 'react';
-import { createWeb3 } from '../../utils/createWeb3';
+
 import { 
   Card, 
   Typography, 
@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 import { AddressTranslator } from 'nervos-godwoken-integration';
 import CKB from '../../ckb.png'
+import { createWeb3 } from '../../utils/createWeb3';
 
 
 export default function WalletPopover() {
@@ -105,8 +106,8 @@ export default function WalletPopover() {
   };
 
   async function triggerWeb3() {
-    const web3 = await createWeb3();
-    setWeb3(web3);
+    const _web3 = await createWeb3();
+    setWeb3(_web3);
     
     // eslint-disable-next-line no-undef
     const done = BigInt(0);
@@ -125,7 +126,7 @@ export default function WalletPopover() {
     (async () => {
         if (accounts && accounts[0]) {
             // eslint-disable-next-line no-undef
-            const _l2Balance = BigInt(await web3.eth.getBalance(accounts[0]));
+            const _l2Balance = BigInt(await web3.eth.getBalance(defaultAccount));
             setL2Balance(_l2Balance);
         }
     })();

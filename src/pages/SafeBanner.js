@@ -5,11 +5,47 @@ import {
     Stack,
     Button,
   } from '@mui/material';
-
-  import Logo from '../ckb.png';
+import { useEffect, useState} from 'react';
+import Logo from '../ckb.png';
+import { createWeb3 } from '../utils/createWeb3';
+import CKBVaultJSON from '../artifacts/contracts/CKBVault.sol/CKBVault.json';
 
 
   export default function SafeBanner() {
+    const [accounts, setAccounts] = useState();
+    const [web3, setWeb3] = useState(null);
+    
+
+    const defaultAccount = accounts?.[0];
+
+    async function createSafe() {
+
+       const contract = new web3.eth.Contract(CKBVaultJSON.abi, "0xed553FcbcC9C9c7412CE7d84C80fa377dca11F3b");
+  
+       const tx = await contract.methods.createSafe().send({
+            gas: 0x54d30,
+            gasPrice: 0x0,
+            from: defaultAccount
+        });
+
+        console.log(tx);
+    }
+
+    useEffect(() => {
+        if (web3) {
+            return;
+        }
+  
+        (async () => {
+            const _web3 = await createWeb3();
+            setWeb3(_web3);
+  
+            const _accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            setAccounts(_accounts);
+            console.log({ _accounts });
+        })();
+    });
+
       return(
       <div>
           <Card
@@ -67,7 +103,7 @@ import {
                   justifyContent="center"
                   sx={{ mt: { xs: 2, md: 0}}}
                   >
-                      <Button variant="contained" size='medium' color='primary' >
+                      <Button variant="contained" size='medium' color='primary' onClick={createSafe}>
                           Create
                       </Button>
                   </Grid>
