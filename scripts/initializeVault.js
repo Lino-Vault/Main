@@ -24,7 +24,7 @@ for(const filename of filenames)
 if(compiledContractArtifact === null)
     throw new Error(`Unable to find contract file: ${contractName}`);
 
-const DEPLOYER_PRIVATE_KEY = '3c0cf19f87538d3517bb7916b55ca66f45059fa00ff80d396b44f65e5327e84e'; // Replace this with your Ethereum private key with funds on Layer 2.
+const DEPLOYER_PRIVATE_KEY = ''; // Replace this with your Ethereum private key with funds on Layer 2.
 
 const web3 = new Web3('https://godwoken-testnet-web3-v1-rpc.ckbapp.dev');
 
